@@ -163,6 +163,7 @@ cython_debug/
 
 # Dataset ViFam
 ViFam/
+Dataset
 
 # Test files
 test*.py

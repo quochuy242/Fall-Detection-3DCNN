@@ -1,6 +1,10 @@
-import cv2
+import random
 from pathlib import Path
 from typing import List
+
+import cv2
+import numpy as np
+import tensorflow as tf
 
 # Constants
 ## Classname
@@ -20,6 +24,7 @@ INDEX2LABEL = {index: label for index, label in enumerate(LABELS)}
 
 ## Image size
 IMAGE_SIZE: tuple = (32, 32)
+DEPTH: int = 1
 
 
 # Useful function
@@ -36,3 +41,17 @@ def get_all_paths(path: Path) -> List[Path]:
 def get_label_from_path(path: Path) -> str:
     """Get label from path"""
     return path.parent.name
+
+
+def set_seed(seed: int = 242) -> None:
+    """Set seed for reproducibility"""
+    np.random.seed(seed)
+    random.seed(seed)
+    session_conf = tf.compat.v1.ConfigProto(
+        intra_op_parallelism_threads=1, inter_op_parallelism_threads=1
+    )
+    sess = tf.compat.v1.Session(
+        graph=tf.compat.v1.get_default_graph(), config=session_conf
+    )
+    tf.compat.v1.keras.backend.set_session(sess)
+    return None

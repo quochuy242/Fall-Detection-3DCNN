@@ -115,7 +115,7 @@ ipython_config.py
 __pypackages__/
 
 # Celery stuff
-celerybeat-schedule
+celerybeat-schedulelog
 celerybeat.pid
 
 # SageMath parsed files
@@ -163,7 +163,20 @@ cython_debug/
 
 # Dataset ViFam
 ViFam/
-Dataset
+Dataset/
+*Dataset*/
 
 # Test files
 test*.py
+
+# Training logs
+logs/
+
+# Model checkpoints
+checkpoints/
+
+# Compressed Files
+*.gz
+*.zip
+*.tar
+*.tar.gz

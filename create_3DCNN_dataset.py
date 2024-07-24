@@ -3,7 +3,13 @@ from time import time
 
 from loguru import logger
 
-from data import create_3DCNN_dataset, create_df, train_val_test_split
+from data import (
+    create_3DCNN_dataset,
+    create_df,
+    train_val_test_split,
+    count_elements,
+    load_dataset,
+)
 
 if __name__ == "__main__":
     logger.add(
@@ -23,6 +29,16 @@ if __name__ == "__main__":
 
     start = time()
     create_3DCNN_dataset(
-        list_df=[train_df, val_df, test_df], destination=Path("Dataset/tfds")
+        list_df=[train_df, val_df, test_df],
+        destination=Path("Dataset/tfds"),
+        ds_return=False,
+        ds_save=True,
     )
     logger.info(f"Time taken: {time() - start}")
+
+    train_ds, val_ds, test_ds = (
+        load_dataset("Training"),
+        load_dataset("Validation"),
+        load_dataset("Testing"),
+    )
+    logger.info(count_elements(train_ds, val_ds, test_ds))

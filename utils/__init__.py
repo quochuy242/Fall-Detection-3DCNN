@@ -22,9 +22,10 @@ LABELS = [
 LABEL2INDEX = {label: index for index, label in enumerate(LABELS)}
 INDEX2LABEL = {index: label for index, label in enumerate(LABELS)}
 
-## Image size
+## Information of dataset
 IMAGE_SIZE: tuple = (32, 32)
-DEPTH: int = 1
+DEPTH: int = 36
+OVERLAP = 3
 
 
 # Useful function
@@ -41,6 +42,19 @@ def get_all_paths(path: Path) -> List[Path]:
 def get_label_from_path(path: Path) -> str:
     """Get label from path"""
     return path.parent.name
+
+
+def get_fps_from_video(path: Path) -> int:
+    """Get fps from video path"""
+    return int(np.ceil(cv2.VideoCapture(str(path)).get(cv2.CAP_PROP_FPS)))
+
+
+def get_resolution_from_video(path: Path) -> tuple:
+    """Get size from video path"""
+    return (
+        int(cv2.VideoCapture(str(path)).get(cv2.CAP_PROP_FRAME_WIDTH)),
+        int(cv2.VideoCapture(str(path)).get(cv2.CAP_PROP_FRAME_HEIGHT)),
+    )
 
 
 def set_seed(seed: int = 242) -> None:

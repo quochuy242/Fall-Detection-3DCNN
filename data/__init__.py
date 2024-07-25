@@ -204,11 +204,12 @@ def load_dataset(name: str, data_dir: Path = Path("Dataset/tfds")) -> tf.data.Da
     )
 
 
-def prepare_dataset(dataset: tf.data.Dataset, batch_size: int = 64) -> tf.data.Dataset:
-    def one_hot(label):
-        label = tf.cast(label, tf.int32)
-        return tf.one_hot(label, len(LABELS))
+def one_hot(label):
+    label = tf.cast(label, tf.int32)
+    return tf.one_hot(label, len(LABELS))
 
+
+def prepare_dataset(dataset: tf.data.Dataset, batch_size: int = 64) -> tf.data.Dataset:
     dataset = dataset.map(lambda x, y: (x, one_hot(y)))
     dataset = dataset.cache()
     dataset = dataset.batch(batch_size)

@@ -4,6 +4,8 @@ import shutil
 from pathlib import Path
 from time import time
 
+import matplotlib.pyplot as plt
+import numpy as np
 from keras import (
     Model,
     activations,
@@ -19,6 +21,7 @@ from loguru import logger
 from data import (
     load_dataset,
     prepare_dataset,
+    one_hot,
 )
 from model import (
     BATCH_SIZE,
@@ -34,6 +37,7 @@ from model import (
     compile,
     lauching_tensorboard,
     summary,
+    show_confusion_matrix,
 )
 
 if __name__ == "__main__":
@@ -120,3 +124,13 @@ if __name__ == "__main__":
             reduce_lr,
         ],
     )
+
+    # Evaluate 3DCNN model
+    logger.info("Evaluating 3DCNN model...")
+    logger.info(cnn_3d.evaluate(test_ds, return_dict=True))
+
+    # Plot confusion matrix
+    logger.info("Plotting confusion matrix...")
+    show_confusion_matrix(cnn_3d, test_ds, "visualize/confusion_matrix")
+
+    logger.info("All done!")

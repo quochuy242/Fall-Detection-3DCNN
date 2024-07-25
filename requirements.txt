@@ -78,6 +78,7 @@ pure_eval @ file:///home/conda/feedstock_root/build_artifacts/pure_eval_17215857
 pyasn1 @ file:///Users/ktietz/demo/mc3/conda-bld/pyasn1_1629708007385/work
 pyasn1-modules==0.2.8
 pycparser @ file:///tmp/build/80754af9/pycparser_1636541352034/work
+pydot==3.0.1
 Pygments @ file:///home/conda/feedstock_root/build_artifacts/pygments_1714846767233/work
 PyJWT @ file:///croot/pyjwt_1715094751094/work
 pyOpenSSL @ file:///croot/pyopenssl_1690223430423/work
@@ -85,6 +86,7 @@ pyparsing==3.1.2
 PySocks @ file:///work/ci_py311/pysocks_1676822712504/work
 python-dateutil @ file:///home/conda/feedstock_root/build_artifacts/python-dateutil_1709299778482/work
 pytz==2024.1
+PyYAML==6.0.1
 pyzmq @ file:///croot/pyzmq_1705605076900/work
 requests==2.32.3
 requests-oauthlib @ file:///croot/requests-oauthlib_1720615017878/work

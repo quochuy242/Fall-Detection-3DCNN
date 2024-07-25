@@ -15,7 +15,7 @@ from keras import (
 )
 from loguru import logger
 from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix
-
+from utils import LABELS
 from data import one_hot
 
 # Typings
@@ -24,18 +24,6 @@ Optimizer = optimizers.Optimizer
 LossFunction = losses.Loss
 Regularizer = regularizers.Regularizer
 Callbacks = List[callbacks.Callback]
-
-# Constants
-## Classname
-LABELS = ["ForwardFall", "BackwardFall", "LeftFall", "RightFall", "GetDown", "SitDown"]
-
-## Dictionary for converting between label and index
-LABEL2INDEX = {label: index for index, label in enumerate(LABELS)}
-INDEX2LABEL = {index: label for index, label in enumerate(LABELS)}
-
-## Training parameters
-BATCH_SIZE = 64
-EPOCHS = 500
 
 
 def compile(

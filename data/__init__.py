@@ -1,7 +1,7 @@
 import os
 import pickle
 from pathlib import Path
-from typing import List, Tuple, Union
+from typing import List, Tuple
 
 import cv2
 import numpy as np
@@ -16,6 +16,7 @@ from utils import (
     LABEL2INDEX,
     LABELS,
     OVERLAP,
+    CHANNEL,
     count_frames,
     get_all_paths,
     get_fps_from_video,
@@ -114,7 +115,8 @@ def preprocess_all_frames(video_path: str) -> np.ndarray:
     success, frame = vid.read()
     while success:
         # Preprocessing each frame
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        if CHANNEL == 1:
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         if width != IMAGE_SIZE[0] or height != IMAGE_SIZE[1]:
             frame = cv2.resize(frame, IMAGE_SIZE, interpolation=cv2.INTER_NEAREST)
         if len(frame.shape) == 2:
@@ -239,3 +241,52 @@ def count_elements(
         "Test": sum(test_count),
     }
     return count_df
+
+
+class RealVideo:
+    def __init__(self, dir: str, extension: str = ".mp4"):
+        """
+        Falling real video for predicting
+
+        Args:
+            dir (str): directory of videos
+            extension (str, optional): extension of videos. Defaults to ".mp4" and must be ".mp4" or ".mov".
+
+        Raises:
+            ValueError: Extension must be .mp4 or .mov
+        """
+        self.dir = dir
+        if extension.lower() in [".mp4", ".mov"]:
+            self.extension = extension if extension == ".mp4" else ".MOV"
+            self.paths = get_all_paths(Path(self.dir))
+        else:
+            self.paths = []
+            raise ValueError("Extension must be .mp4 or .mov")
+
+    def __len__(self):
+        return len(self.paths)
+
+    def __getitem__(self, index):
+        return self.paths[index]
+
+    def loading(
+        self, index: int, clip_length: int = DEPTH, overlap: int = OVERLAP
+    ) -> np.ndarray:
+        """
+        Create overlapping video. Each video frame consists of DEPTH consecutive frames with overlap
+
+        Args:
+            clip_length (int, optional): Length of each clip or Third dimension for 3DCNN model. Defaults to DEPTH.
+            overlap (int, optional): Number of second overlap between two consecutive frames. Defaults to OVERLAP.
+
+        Returns:
+            np.ndarray: Numpy array of shape (len(self), clip_length, IMAGE_SIZE[0], IMAGE_SIZE[1], CHANNEL)
+        """
+
+        clip_frames = []
+        frames = preprocess_all_frames(self.paths[index])
+        for i in range(0, len(frames) - clip_length + 1, clip_length - overlap):
+            if len(frames[i : i + clip_length]) == clip_length:
+                clip_frames.append((frames[i : i + clip_length]))
+
+        return np.array(clip_frames)

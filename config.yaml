@@ -1,0 +1,10 @@
+image_width: 32
+image_height: 32
+image_channel: 1
+
+depth: 36 # third dimension of input for 3DCNN
+overlap: 3 # overlap between two consecutive frames
+labels:
+  ["ForwardFall", "BackwardFall", "LeftFall", "RightFall", "GetDown", "SitDown"]
+
+seed: 242

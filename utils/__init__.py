@@ -5,27 +5,32 @@ from typing import List
 import cv2
 import numpy as np
 import tensorflow as tf
+import yaml
 
-# Constants
-## Classname
-LABELS = [
-    "ForwardFall",
-    "BackwardFall",
-    "LeftFall",
-    "RightFall",
-    "GetDown",
-    "SitDown",
-    "Walk",
-]
+# Load config and params from yaml file
+with open("config.yaml", "r") as stream:
+    config = yaml.safe_load(stream)
+with open("train_params.yaml", "r") as stream:
+    train_params = yaml.safe_load(stream)
+with open("test_params.yaml", "r") as stream:
+    test_params = yaml.safe_load(stream)
 
-## Dictionary for converting between label and index
+# Global variables
+LABELS = config["labels"]
+IMAGE_SIZE = (config["image_width"], config["image_height"])
+DEPTH = config["depth"]
+OVERLAP = config["overlap"]
+CHANNEL = config["image_channel"]
+BATCH_SIZE = train_params["batch_size"]
+EPOCHS = train_params["epochs"]
+OPTIMIZER = train_params["optimizer"]
+URL_WEIGHTS = test_params["url_weights"]
+OUTPUT_WEIGHT_DOWNLOAD = test_params["output_weight_download"]
+
+
+# Dictionary for converting between label and index
 LABEL2INDEX = {label: index for index, label in enumerate(LABELS)}
 INDEX2LABEL = {index: label for index, label in enumerate(LABELS)}
-
-## Information of dataset
-IMAGE_SIZE: tuple = (32, 32)
-DEPTH: int = 36
-OVERLAP = 3
 
 
 # Useful function

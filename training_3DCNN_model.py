@@ -85,7 +85,10 @@ if __name__ == "__main__":
 
     # Plotting the architectural graph of the model
     utils.plot_model(
-        cnn_3d, to_file="visualize/architecture_3DCNN.png", show_shapes=True, dpi=60
+        cnn_3d,
+        to_file="visualize/3DCNN/architecture_3DCNN.png",
+        show_shapes=True,
+        dpi=60,
     )
 
     # Lauching tensorboard
@@ -114,6 +117,6 @@ if __name__ == "__main__":
 
     # Plot confusion matrix
     logger.info("Plotting confusion matrix...")
-    show_confusion_matrix(cnn_3d, test_ds, "visualize/confusion_matrix")
+    show_confusion_matrix(cnn_3d, test_ds, "visualize/3DCNN/confusion_matrix")
 
     logger.info("All done!")

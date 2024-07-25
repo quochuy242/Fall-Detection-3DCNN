@@ -173,7 +173,7 @@ test*.py
 logs/
 
 # Model checkpoints
-checkpoints/
+checkpoint/
 
 # Compressed Files
 *.gz

@@ -1,8 +1,6 @@
-from keras import layers, Model, optimizers, callbacks, metrics, losses, regularizers
-from utils import LABEL2INDEX, INDEX2LABEL, LABELS, set_seed, IMAGE_SIZE, DEPTH
-from typing import List, Callable
-from loguru import logger
-from model import Metric, Optimizer, LossFunction, Regularizer
+from keras import layers, Model, regularizers
+from utils import LABELS, set_seed, IMAGE_SIZE, DEPTH
+from typing import Callable
 
 
 def add_conv_block(

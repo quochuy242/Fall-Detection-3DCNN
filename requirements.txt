@@ -35,6 +35,7 @@ ipfshttpclient==0.7.0
 ipykernel @ file:///home/conda/feedstock_root/build_artifacts/ipykernel_1719845459717/work
 ipython @ file:///home/conda/feedstock_root/build_artifacts/ipython_1719582526268/work
 jedi @ file:///home/conda/feedstock_root/build_artifacts/jedi_1696326070614/work
+joblib==1.4.2
 jupyter_client @ file:///home/conda/feedstock_root/build_artifacts/jupyter_client_1716472197302/work
 jupyter_core @ file:///home/conda/feedstock_root/build_artifacts/jupyter_core_1710257359434/work
 keras==3.4.1
@@ -89,6 +90,7 @@ requests==2.32.3
 requests-oauthlib @ file:///croot/requests-oauthlib_1720615017878/work
 rich==13.7.1
 rsa @ file:///tmp/build/80754af9/rsa_1614366226499/work
+scikit-learn==1.5.1
 scipy @ file:///croot/scipy_1717521478074/work/dist/scipy-1.13.1-cp311-cp311-linux_x86_64.whl#sha256=f0a29afe8e78f15653c9afe02349a3462e4e9e7131c5e68b77b70fd68d25e6a2
 six @ file:///tmp/build/80754af9/six_1644875935023/work
 stack-data @ file:///home/conda/feedstock_root/build_artifacts/stack_data_1669632077133/work
@@ -99,6 +101,7 @@ tensorflow==2.17.0
 tensorflow-estimator @ file:///home/builder/mesters/opt/envs/tensorflow/conda-bld/tensorflow-estimator_1682445976941/work/tensorflow_estimator-2.12.0-py2.py3-none-any.whl
 tensorflow-io-gcs-filesystem==0.37.1
 termcolor @ file:///work/ci_py311/termcolor_1676838860478/work
+threadpoolctl==3.5.0
 tornado @ file:///home/conda/feedstock_root/build_artifacts/tornado_1717722848697/work
 tqdm==4.66.4
 traitlets @ file:///home/conda/feedstock_root/build_artifacts/traitlets_1713535121073/work

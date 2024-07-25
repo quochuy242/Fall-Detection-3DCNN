@@ -8,7 +8,6 @@ import tensorflow as tf
 from keras import (
     Model,
     callbacks,
-    layers,
     losses,
     metrics,
     optimizers,
@@ -18,7 +17,6 @@ from loguru import logger
 from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix
 
 from data import one_hot
-from utils import DEPTH, IMAGE_SIZE, set_seed
 
 # Typings
 Metrics = List[metrics.Metric]
@@ -37,7 +35,7 @@ INDEX2LABEL = {index: label for index, label in enumerate(LABELS)}
 
 ## Training parameters
 BATCH_SIZE = 64
-EPOCHS = 100
+EPOCHS = 500
 
 
 def compile(
@@ -54,14 +52,28 @@ def summary(model: Model, log: bool = False) -> None:
         model.summary()
 
 
-def lauching_tensorboard(log_dir: str) -> callbacks.TensorBoard:
+def lauching_tensorboard(log_dir: str) -> None:
+    """
+    Lauching tensorboard by running script on shell
+
+    Args:
+        log_dir (str): log directory for tensorboard"""
     logger.info(f"Launching tensorboard at {log_dir}")
     os.system(f"tensorboard --logdir={log_dir}")
+    return None
 
 
 def show_confusion_matrix(
     model: Model, test_ds: tf.data.Dataset, save_path: str
 ) -> None:
+    """
+    Show confusion matrix
+
+    Args:
+        model (Model): model object want to show confusion matrix
+        test_ds (tf.data.Dataset): testing dataset, should be in form of (batch, image, label)
+        save_path (str): path to save confusion matrix
+    """
     y_pred = model.predict(test_ds)
     y_pred = np.argmax(y_pred, axis=1)
     y_pred = np.array(map(one_hot, y_pred))
